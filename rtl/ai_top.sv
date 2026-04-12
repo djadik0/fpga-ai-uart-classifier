@@ -8,10 +8,13 @@ module ai_top#(
   input   logic  rst,
   input   logic  rx_i,
 
-  output  logic  tx_o
+  output  logic  tx_o,
+  output  logic  dbg_led
 
 );
-
+    
+  assign  dbg_led = 0;
+  
   logic                            rx_busy_o;
 
   logic                            start_tx_i;
@@ -34,6 +37,7 @@ module ai_top#(
   logic                            start_AI;
   logic  [$clog2(OBJECTS)-1:0]     class_id;
   logic                            done_arg;
+  
 
   uart_rx u_uart_rx (
     .clk(clk),
