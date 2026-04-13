@@ -33,8 +33,8 @@ module uart_rx#(
     
     always_ff @( posedge clk or negedge rst ) begin
         if ( !rst ) begin 
-            rx_ff_1  <=  0;
-            rx_ff_2  <=  0;
+            rx_ff_1  <=  1;
+            rx_ff_2  <=  1;
         end else begin
             rx_ff_1  <=  rx_i;
             rx_ff_2  <=  rx_ff_1;
@@ -75,23 +75,24 @@ module uart_rx#(
                         else 
                             state    <=  IDLE;
                     end
-
                 end
+                
 
                 DATA: begin
                     busy_o   <=  1;
                     clk_cnt  <=  clk_cnt + 1;
-                    if ( clk_cnt == CLKS_PER_BIT-1 && bit_idx == 4'd7 ) begin
+                    if ( clk_cnt == CLKS_PER_BIT/2 - 1 ) begin  
                         data_ff[bit_idx]  <=  rx_ff_2;
+                    end
+                    
+                    if ( clk_cnt == CLKS_PER_BIT-1 && bit_idx == 4'd7 ) begin
                         clk_cnt           <=  '0;
                         state             <=  STOP;
                     end
                     else if ( clk_cnt == CLKS_PER_BIT-1 ) begin 
-                            data_ff[bit_idx]  <=  rx_ff_2;
-                            bit_idx           <=  bit_idx + 1;
-                            clk_cnt           <=  '0;
+                        bit_idx           <=  bit_idx + 1;
+                        clk_cnt           <=  '0;
                     end
-
                 end
 
                 STOP: begin

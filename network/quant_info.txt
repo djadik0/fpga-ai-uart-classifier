@@ -1,0 +1,8 @@
+conv_scale=149.86400180058519
+conv_max_abs=0.8474349975585938
+fc_scale=497.19445034942584
+fc_max_abs=0.25543326139450073
+quantization=symmetric per-layer int8, q=round(w*scale), scale=127/max_abs
+conv_order=filter,y,x
+fc_order=class,flatten_index
+flatten_assumption=PyTorch NCHW flatten => channel/filter major, then y, then x

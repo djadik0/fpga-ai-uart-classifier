@@ -51,12 +51,16 @@ module uart_tx#(
                 START: begin 
                     tx_o     <=  0;
                     busy_o   <=  1;
-                    clk_cnt  <=  clk_cnt + 1;
-                    if ( clk_cnt == CLKS_PER_BIT-1 ) begin 
+                    if ( clk_cnt == CLKS_PER_BIT-1 ) begin
                         state    <=  DATA;
                         clk_cnt  <=  '0;
                     end
+                    else begin
+                        clk_cnt  <=  clk_cnt + 1;
+                    end
                 end
+
+                
 
                 DATA: begin
                     busy_o   <=  1;

@@ -136,7 +136,7 @@ def send_image_and_get_class(
 def main():
     parser = argparse.ArgumentParser(description="Загрузка изображения 64x64 в FPGA по UART")
     parser.add_argument("image", nargs="?", default=None, help="Путь к изображению (необязательно)")
-    parser.add_argument("--port", required=True, help="COM-порт, например COM5")
+    parser.add_argument("--port", default="COM6", help="COM-порт")
     parser.add_argument("--baud", type=int, default=DEFAULT_BAUD, help="Скорость UART")
     parser.add_argument("--timeout", type=float, default=10.0, help="Таймаут ожидания ответа в секундах")
     parser.add_argument("--open-delay", type=float, default=0.2, help="Пауза после открытия порта")
@@ -149,7 +149,7 @@ def main():
 
     try:
         send_image_and_get_class(
-            port=args.port,
+            port="COM6",
             image_path=args.image,
             baudrate=args.baud,
             timeout=args.timeout,

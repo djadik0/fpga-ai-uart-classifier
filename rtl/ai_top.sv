@@ -13,8 +13,7 @@ module ai_top#(
 
 );
     
-  assign  dbg_led = 0;
-  
+  assign  dbg_led =  0;
   logic                            rx_busy_o;
 
   logic                            start_tx_i;
@@ -105,6 +104,7 @@ module ai_top#(
             start_AI        <=  0;
             start_tx_i      <=  0;
             tx_data_i       <=  0;
+            dbg_led         <=  1'b1;
         end
 
         else begin 
@@ -114,6 +114,7 @@ module ai_top#(
             start_tx_i      <=  0;
             
             case ( state ) 
+
 
             WAIT_CMD: begin 
                 if ( rx_valid_i && rx_data_i == 8'b10100101 ) begin
@@ -154,7 +155,8 @@ module ai_top#(
 
             WAIT_TX: begin 
                 if ( tx_done_o ) 
-                    state  <=  WAIT_CMD;
+                    state    <=  WAIT_CMD;
+                    dbg_led  <=  0;
             end 
 
         endcase

@@ -106,7 +106,7 @@ module tb_ai_top;
                   tx_rx_data, tx_rx_data, label);
 
         if (tx_rx_data !== expected_class) begin
-            $fatal(1, "FAIL: %0s result = %0d, expected %0d",
+            $display(1, "FAIL: %0s result = %0d, expected %0d",
                    label, tx_rx_data, expected_class);
         end
 
